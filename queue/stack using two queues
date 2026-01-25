@@ -1,0 +1,27 @@
+from collections import deque
+
+class MyStack:
+    def __init__(self):
+        self.q1 = deque()
+        self.q2 = deque()
+
+    def push(self, x: int) -> None:
+        # 1. Put the new element in the empty q2
+        self.q2.append(x)
+        
+        # 2. Push all elements of q1 into q2 
+        while self.q1:
+            self.q2.append(self.q1.popleft())
+            
+        # 3. Swap the names of q1 and q2
+        self.q1, self.q2 = self.q2, self.q1
+
+    def pop(self) -> int:
+        # Since q1 always has the newest at the front, just popleft
+        return self.q1.popleft()
+
+    def top(self) -> int:
+        return self.q1[0]
+
+    def empty(self) -> bool:
+        return not self.q1
