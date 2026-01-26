@@ -1,0 +1,10 @@
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        # 2. Recursion: Find the depth of both sides
+        left_side = self.maxDepth(root.left)
+        right_side = self.maxDepth(root.right)
+        
+        return max(left_side, right_side) + 1
