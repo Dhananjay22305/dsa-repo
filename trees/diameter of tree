@@ -1,0 +1,16 @@
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.max_diameter = 0   # we did this because max diameter can be combination of both subtrees or can be within single subtree
+        
+        def getHeight(node):
+            if not node:
+                return 0
+            left_h = getHeight(node.left)
+            right_h = getHeight(node.right)
+            
+            self.max_diameter = max(self.max_diameter, left_h + right_h)
+            
+            return max(left_h, right_h) + 1
+        
+        getHeight(root)
+        return self.max_diameter
