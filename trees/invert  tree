@@ -1,0 +1,11 @@
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        root.left, root.right = root.right, root.left
+    
+        self.invertTree(root.left)     #self.invert because inverttree is a  method in class solution
+        self.invertTree(root.right)
+        
+        # 4. Return the root of the now-inverted tree
+        return root
