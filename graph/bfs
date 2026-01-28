@@ -1,0 +1,31 @@
+#Adjacency list
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+from collections import deque
+
+def bfs(graph, start_node):
+    visited = set()         # Keep track of where we've been
+    queue = deque([start_node]) # Add the starting point to our queue
+    visited.add(start_node)
+
+    while queue:
+        #FIFO Logic
+        current = queue.popleft()
+        print(current, end=" ") 
+
+        # Look at all neighbors
+        for neighbor in graph[current]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+print("BFS Traversal:")
+bfs(graph, 'A') 
+# Output will be: A B C D E F (going layer by layer)
