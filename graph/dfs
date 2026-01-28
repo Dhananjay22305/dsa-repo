@@ -1,0 +1,16 @@
+def dfs(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+    
+    # Mark the current node as visited
+    visited.add(node)
+    print(node, end=" ")
+
+    # Visit neighbors recursively (going deep)
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+
+print("\nDFS Traversal:")
+dfs(graph, 'A')
+# Output will be: A B D E F C (diving deep into B's path first)
