@@ -1,0 +1,19 @@
+class Solution:
+    def subsets(self, nums: list[int]) -> list[list[int]]:
+        result = []
+        
+        # current_path: the subset we are currently building
+        def backtrack(start, current_path):
+            result.append(list(current_path))
+            
+            for i in range(start, len(nums)):
+                current_path.append(nums[i])
+                
+                backtrack(i + 1, current_path)
+                
+                # 5. Backtrack: Remove the number to try a different path
+                current_path.pop()
+        
+        # Start the recursion from index 0 with an empty path
+        backtrack(0, [])
+        return result
