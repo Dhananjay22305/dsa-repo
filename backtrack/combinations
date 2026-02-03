@@ -1,0 +1,16 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        result = []
+        def backtrack(start,path):
+            if len(path)== k:
+             result.append(list(path))
+             return
+            for i in range(start, n + 1):
+                path.append(i)          # Choose the number
+                backtrack(i + 1, path)  # Move to the NEXT number (i + 1)
+                path.pop()              # Backtrack (remove it to try the next i)
+
+        backtrack(1, [])
+        return result
+                
+        
