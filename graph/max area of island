@@ -1,0 +1,30 @@
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        if not grid:
+            return 0
+
+        rows, cols = len(grid), len(grid[0])
+        max_area = 0
+
+        def dfs(r, c):
+            if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == 0:
+                return 0
+            
+            grid[r][c] = 0
+            
+            # 3. Recursive Step: Count this cell (1) + all its neighbors
+            current_area = 1
+            current_area += dfs(r + 1, c)
+            current_area += dfs(r - 1, c)
+            current_area += dfs(r, c + 1)
+            current_area += dfs(r, c - 1)
+            
+            return current_area
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    # Update max_area if this new island is bigger
+                    max_area = max(max_area, dfs(r, c))    #differnce from just counting the no of islands
+                    
+        return max_area
