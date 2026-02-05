@@ -1,0 +1,15 @@
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:  
+        mid = low + (high - low) // 2               #this formula because if the dataset is big then the sum of high + low will be  out of memory
+        
+        if arr[mid] == target:
+            return mid  # Found it!
+        elif arr[mid] < target:
+            low = mid + 1  # Target is in the right half
+        else:
+            high = mid - 1 # Target is in the left half
+            
+    return -1  # Not found
