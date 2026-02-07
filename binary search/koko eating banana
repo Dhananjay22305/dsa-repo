@@ -1,0 +1,23 @@
+import math
+
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        left, right = 1, max(piles)
+        ans = right
+        
+        while left <= right:
+            mid = (left + right) // 2
+            
+            total_hours = 0
+            for pile in piles:
+                # math.ceil(pile / mid) is the same as (pile + mid - 1) // mid
+                total_hours += math.ceil(pile / mid)
+            
+            if total_hours <= h:
+                ans = mid
+                right = mid - 1
+            else:
+                # Too slow, need to increase speed
+                left = mid + 1
+                
+        return ans
