@@ -1,0 +1,26 @@
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        left, right = max(weights), sum(weights)
+        ans = right
+        
+        while left <= right:
+            mid_capacity = (left + right) // 2
+            
+            days_needed = 1
+            current_load = 0
+            for w in weights:
+                if current_load + w > mid_capacity:
+                    days_needed += 1
+                    current_load = w # Start new day with this package
+                else:
+                    current_load += w
+            
+            if days_needed <= days:
+                # This capacity works! Can we go smaller?
+                ans = mid_capacity
+                right = mid_capacity - 1
+            else:
+                # Too small! We need more capacity
+                left = mid_capacity + 1
+                
+        return ans
