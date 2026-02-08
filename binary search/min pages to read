@@ -1,0 +1,26 @@
+def findPages(arr, n, m):
+    if m > n: return -1
+    
+    left, right = max(arr), sum(arr)
+    ans = right
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        students_count = 1
+        current_pages = 0
+        for pages in arr:
+            if current_pages + pages > mid:
+                students_count += 1
+                current_pages = pages
+            else:
+                current_pages += pages
+        
+        # Decision:
+        if students_count <= m:
+            ans = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+            
+    return ans
