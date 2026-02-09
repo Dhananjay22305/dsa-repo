@@ -1,0 +1,34 @@
+class Solution:
+    def maxDistance(self, position: list[int], m: int) -> int:
+    # Sort positions to allow for a greedy placement strategy
+        position.sort()
+        left = 1
+        right = position[-1] - position[0]
+        answer = 1
+        
+        def canPlace(mid):
+            # Greedy check: can we place m balls with at least 'mid' distance?
+            count = 1  # Place the first ball in the first basket
+            last_pos = position[0]
+            
+            for i in range(1, len(position)):
+                if position[i] - last_pos >= mid:
+                    count += 1
+                    last_pos = position[i]
+                
+                if count >= m:
+                    return True
+            return False
+
+        while left <= right:
+            mid = (left + right) // 2
+            
+            if canPlace(mid):
+                # If mid works, try to find a larger minimum distance
+                answer = mid
+                left = mid + 1
+            else:
+                # If mid is too large, reduce the search space
+                right = mid - 1
+                
+        return answer
